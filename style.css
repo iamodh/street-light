@@ -1,54 +1,42 @@
 @import "reset.css";
+* {
+  box-sizing: border-box;
+}
 
-.sky {
+body {
+  background-color: black;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
   height: 100vh;
-  background-color: black;
   overflow: hidden;
 }
 
 .scene {
   width: 600px;
   height: 600px;
-  background-color: tomato;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  margin-top: 40px;
 }
 
-.background {
-  width: 100%;
+.sky {
   height: 60%;
   background-color: #0f0f41;
   position: relative;
-  z-index: 10;
+  z-index: 1;
 }
 
 .ground {
-  z-index: 1;
   height: 40%;
-  background-color: aqua;
   display: flex;
 }
 
-.ground__column:first-child {
+.ground__grass {
   width: 20%;
   background-color: #02012c;
 }
 
-.ground__column:nth-child(2) {
+.ground__road {
   width: 60%;
-  background-color: #313163;
-}
-
-.ground__column:last-child {
-  width: 20%;
-  background-color: #02012c;
 }
 
 .base,
@@ -56,18 +44,10 @@
 .neck,
 .arm,
 .socket,
-.bulb,
-.light {
+.bulb {
   position: absolute;
-}
-
-.base,
-.pole,
-.neck,
-.arm,
-.socket {
-  z-index: 2;
   background-color: #313163;
+  z-index: 3;
 }
 
 .base {
@@ -106,7 +86,7 @@
 }
 
 .bulb {
-  z-index: 1;
+  z-index: 2;
   width: 30px;
   height: 30px;
   border-radius: 15px;
@@ -140,6 +120,7 @@
 }
 
 .light {
+  position: absolute;
   width: 0px;
   height: 0;
   border-left: 240px solid transparent;
@@ -153,42 +134,182 @@
 }
 
 .lines {
-  height: 800px;
+  z-index: 0;
+  height: 400px;
+  background-color: #313163;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  position: relative;
+  top: -80px;
+}
+
+.ground__padding {
+  width: 600px;
+  height: 120px;
+  background-color: black;
   position: relative;
 }
 
 @keyframes lineParallax {
   from {
-    transform: translateY(-20px);
+    transform: translateY(-85px);
   }
   to {
-    transform: translateY(220px);
+    transform: translateY(0);
   }
 }
 
 .line {
-  z-index: 0;
   width: 30px;
-  height: 80px;
+  height: 60px;
   background-color: #5a5a97;
   position: relative;
-  top: -200px;
-  margin: 20px 0px;
-  animation: lineParallax 2s linear infinite;
+  animation: lineParallax 1.5s linear infinite;
+  transform: translateY(-85px);
 }
 
-header {
-  width: 100%;
-  height: 200px;
-  background-color: black;
-}
-footer {
-  width: 100%;
-  height: 1000px;
-  background-color: black;
-  position: relative;
-  z-index: 10;
+@media screen and (max-width: 600px) {
+  body {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .scene {
+    height: 400px;
+    width: 300px;
+  }
+
+  .sky {
+    height: 60%;
+    background-color: #0f0f41;
+    position: relative;
+    z-index: 1;
+  }
+
+  .ground {
+    height: 40%;
+    display: flex;
+  }
+
+  .ground__grass {
+    width: 20%;
+    background-color: #02012c;
+  }
+
+  .ground__road {
+    width: 60%;
+  }
+
+  .base,
+  .pole,
+  .neck,
+  .arm,
+  .socket,
+  .bulb {
+    position: absolute;
+    background-color: #313163;
+    z-index: 3;
+  }
+
+  .base {
+    width: 50px;
+    height: 10px;
+    right: 20px;
+    bottom: 0;
+  }
+
+  .pole {
+    width: 10px;
+    height: 140px;
+    right: 40px;
+    bottom: 10px;
+  }
+
+  .neck {
+    width: 75px;
+    height: 10px;
+    right: 40px;
+    top: 80px;
+  }
+
+  .arm {
+    width: 10px;
+    height: 10px;
+    right: 105px;
+    top: 90px;
+  }
+
+  .socket {
+    width: 30px;
+    height: 5px;
+    top: 100px;
+    right: 95px;
+  }
+
+  .bulb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    right: 102.5px;
+    top: 100px;
+    background-color: #f3e8c5;
+    z-index: 2;
+  }
+
+  .light {
+    z-index: 1;
+    position: absolute;
+    width: 0px;
+    height: 0;
+    border-left: 120px solid transparent;
+    border-right: 40px solid transparent;
+
+    border-bottom: 140px solid #f3e8c5;
+    top: 100px;
+    right: 67.5px;
+    animation: lightFlickering 4s ease-in-out infinite;
+  }
+
+  .lines {
+    z-index: 0;
+    height: 300px;
+    background-color: #313163;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    top: -50px;
+  }
+
+  @keyframes lineParallax {
+    from {
+      transform: translateY(-80px);
+    }
+    to {
+      transform: translateY(40px);
+    }
+  }
+
+  .line {
+    width: 15px;
+    height: 40px;
+    margin: 10px;
+    background-color: #5a5a97;
+    transform: translateY(-80px);
+    animation: lineParallax 2s linear infinite;
+  }
+
+  .ground__padding {
+    width: 300px;
+    height: 120px;
+    background-color: black;
+    position: relative;
+  }
 }
